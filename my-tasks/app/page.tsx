@@ -1,9 +1,10 @@
 "use client";
 import Protected from "@components/Protected";
 import { auth } from "@lib/firebase";
-import { useAuth } from "../Context/AuthContex";
+import { useAuth } from "@context/Authcontext";
 import { signOut } from "firebase/auth";
 
+// ...existing code...
 export default function Dashboard() {
   const { user } = useAuth();
 
