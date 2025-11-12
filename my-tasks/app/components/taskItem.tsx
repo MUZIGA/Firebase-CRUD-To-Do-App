@@ -1,67 +1,71 @@
 "use client";
-import { db } from "@/lib/firebase";
-import { doc, updateDoc, deleteDoc } from "firebase/firestore";
-import { Task } from "../types";
+
+import { Task } from "@/app/types";
+
 interface TaskItemProps {
   task: Task;
   onEdit: (task: Task) => void;
-  onUpdate: () => void;
+  onDelete: (taskId: string) => Promise<void>;
+  onToggleCompleted: (taskId: string, isCompleted: boolean) => Promise<void>;
 }
-export default function TaskItem({ task, onEdit, onUpdate }: TaskItemProps) {
-  const toggleComplete = async () => {
-    const taskRef = doc(db, "tasks", task.id);
-    await updateDoc(taskRef, { completed: !task.completed });
-    onUpdate();
+
+export default function TaskItem({
+  task,
+  onEdit,
+  onDelete,
+  onToggleCompleted,
+}: TaskItemProps) {
+  const handleToggle = () => {
+    void onToggleCompleted(task.id, task.completed);
   };
-  const handleDelete = async () => {
-    if (confirm("Delete this task?")) {
-      await deleteDoc(doc(db, "tasks", task.id));
-      onUpdate();
+
+  const handleDelete = () => {
+    if (confirm("Are you sure you want to delete this task?")) {
+      void onDelete(task.id);
     }
   };
+
   return (
-    <div className={`p-4 border rounded mb-3 ${task.completed ? "bg-gray-100" : "bg-black"}`}>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+    <article
+      className={`rounded-lg border border-gray-200 p-4 shadow-sm transition ${
+        task.completed ? "bg-gray-100" : "bg-white"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-4">
+        <label className="flex items-start gap-3">
           <input
             type="checkbox"
             checked={task.completed}
-            onChange={toggleComplete}
-            className="w-5 h-5"
+            onChange={handleToggle}
+            className="mt-1 h-5 w-5 cursor-pointer rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
           />
           <div>
-            <h3 className={`font-semibold ${task.completed ? "line-through" : ""}`}>
+            <h3 className={`text-base font-semibold text-gray-900 ${task.completed ? "line-through" : ""}`}>
               {task.title}
             </h3>
-            <p className="text-sm text-gray-600">{task.description}</p>
+            <p className="mt-1 text-sm text-gray-600">{task.description}</p>
             <span
-              className={`inline-block px-2 py-1 text-xs rounded mt-1 ${
+              className={`mt-2 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${
                 task.priority === "High"
-                  ? "bg-red-200 text-red-800"
+                  ? "bg-red-100 text-red-700"
                   : task.priority === "Medium"
-                  ? "bg-yellow-200 text-yellow-800"
-                  : "bg-green-200 text-green-800"
+                  ? "bg-yellow-100 text-yellow-700"
+                  : "bg-green-100 text-green-700"
               }`}
             >
-              {task.priority}
+              {task.priority} priority
             </span>
           </div>
-        </div>
-        <div className="flex gap-2">
-          <button
-            onClick={() => onEdit(task)}
-            className= " bg-yellow-600 text-pink-600 hover:underline text-sm"
-          >
+        </label>
+        <div className="flex flex-col gap-2 text-sm font-medium text-indigo-600">
+          <button onClick={() => onEdit(task)} className="hover:underline">
             Edit
           </button>
-          <button
-            onClick={handleDelete}
-            className=" bg-amber-800 text-red-600 hover:underline text-sm"
-          >
+          <button onClick={handleDelete} className="text-red-600 hover:underline">
             Delete
           </button>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

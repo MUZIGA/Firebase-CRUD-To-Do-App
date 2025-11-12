@@ -19,18 +19,11 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "components/*"
-      ],
-      "@context/*": [
-        "context/*"
-      ],
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@types/*": [
-        "types/*"
-      ]
+      "@/*": ["./*"],
+      "@components/*": ["components/*"],
+      "@context/*": ["context/*"],
+      "@lib/*": ["lib/*"],
+      "@types/*": ["types/*"]
     },
     "incremental": true,
     "plugins": [

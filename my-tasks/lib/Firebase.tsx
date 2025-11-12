@@ -1,18 +1,25 @@
 
-import { initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-// Load config from .env.local (via process.env)
+
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID!,
+  apiKey: "AIzaSyAXhUtzCa2MkJ0aKcZj4oamPQILGLTXQ7Y",
+  authDomain: "authentication-400ff.firebaseapp.com",
+  projectId: "authentication-400ff",
+  storageBucket: "authentication-400ff.firebasestorage.app",
+  messagingSenderId: "272127600459",
+  appId: "1:272127600459:web:e760b836af7957e195eace",
+  measurementId: "G-14XWW01JXT"
 };
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+
+if (!firebaseConfig.apiKey) {
+  throw new Error(
+    "Missing Firebase configuration. Check your NEXT_PUBLIC_FIREBASE_* environment variables."
+  );
+}
+
+const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+
 export const auth = getAuth(app);
 export const db = getFirestore(app);
