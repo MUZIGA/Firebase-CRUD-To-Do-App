@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { auth } from "../../../lib/firebase";
-import { useAuth } from "../../../context/AuthContext";
+import { auth } from "@/lib/firebase";
+import { useAuth } from "@/context/AuthContext";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -47,7 +47,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-blue-500 to-indigo-600 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
         <h1 className="text-center text-3xl font-bold text-indigo-700">Create Account</h1>
         <p className="mt-2 text-center text-sm text-gray-500">Join and start organising your tasks.</p>

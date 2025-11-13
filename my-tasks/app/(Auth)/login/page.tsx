@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { auth } from "../../../lib/firebase";
-import { useAuth } from "../../../context/AuthContext";
+import { auth } from "@/lib/firebase";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -41,7 +41,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-blue-500 to-indigo-600 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
         <h1 className="text-center text-3xl font-bold text-indigo-700">Welcome Back</h1>
         <p className="mt-2 text-center text-sm text-gray-500">Sign in to manage your tasks.</p>

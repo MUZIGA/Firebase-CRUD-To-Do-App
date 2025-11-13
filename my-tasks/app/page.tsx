@@ -4,11 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { addDoc, collection, deleteDoc, doc, onSnapshot, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
 import { signOut } from "firebase/auth";
-import { useAuth } from "../context/AuthContext";
-import { auth, db } from "../lib/firebase";
+import { useAuth } from "@/context/AuthContext";
+import { Task } from "./types";
+import { auth, db } from "@/lib/firebase";
 import TaskForm from "./components/Taskform";
 import TaskItem from "./components/TaskItem";
-import { Task } from "./types";
+
 
 export default function DashboardPage() {
   const router = useRouter();
