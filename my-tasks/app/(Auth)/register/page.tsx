@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { auth } from "@lib/firebase";
-import { useAuth } from "@context/AuthContext";
+import { auth } from "../../../lib/firebase";
+import { useAuth } from "../../../context/AuthContext";
 
 export default function RegisterPage() {
   const router = useRouter();

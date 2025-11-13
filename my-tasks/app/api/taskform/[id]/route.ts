@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { db } from "../../../../lib/firebase";
 
 export async function PUT(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
@@ -11,6 +11,7 @@ export async function PUT(req: NextRequest, context: { params: Promise<{ id: str
 
     const body = await req.json();
     const taskRef = doc(db, "tasks", id);
+
     await updateDoc(taskRef, {
       ...body,
       updatedAt: new Date(),
