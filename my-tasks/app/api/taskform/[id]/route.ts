@@ -1,16 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../../../../lib/firebase";
+import { db } from "@/lib/firebase";
 
 // -------------------------
 // PUT (Update a Task)
 // -------------------------
 export async function PUT(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> } // <-- Use Promise
 ) {
   try {
-    const { id } = await context.params; // 👈 Await because params is a Promise in Next.js 16
+    const { id } = await context.params; // <-- Await because it's a promise
     if (!id) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 });
     }
@@ -39,10 +39,10 @@ export async function PUT(
 // -------------------------
 export async function DELETE(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> } // <-- Use Promise
 ) {
   try {
-    const { id } = await context.params; // 👈 Await here too
+    const { id } = await context.params; // <-- Await here too
     if (!id) {
       return NextResponse.json(
         { error: "Task ID is required" },
